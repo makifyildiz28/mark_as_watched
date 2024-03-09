@@ -1,0 +1,31 @@
+name: Update Trakt List
+
+on:
+  schedule:
+    - cron: '0 0 * * *' 
+
+jobs:
+  update_trakt_list:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Update Trakt list
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          LIST_NAME: ${{ secrets.LIST_NAME }}
+          USERNAME: ${{ secrets.USERNAME }}
+        run: |
+          python mark_as_watched.py
