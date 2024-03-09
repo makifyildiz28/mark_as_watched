@@ -1,12 +1,12 @@
 import requests
 
-# Trakt API ayarları
-client_id = '3c63462cb8aa0937b24461110f0feafa5717197e8535e1ce1d18f78480b89a0b'
-client_secret = 'dce0c9524cd08e67291772dd056189a2ee32bc1550cb9d90c878b1a1082d06d2'
-access_token = 'urn:ietf:wg:oauth:2.0:oob'  # OAuth ile edinilen erişim tokeni
+# Trakt API settings
+client_id = 'YOUR_CLIENT_ID'
+client_secret = 'YOUR_CLIENT_SECRET'
+access_token = 'YOUR_ACCESS_TOKEN'  # Access token obtained via OAuth
 api_url = 'https://api.trakt.tv'
-list_name = 'Watched'  # İşlem yapmak istediğiniz listenin adı
-username = 'akif28'  # Trakt kullanıcı adınız
+list_name = 'YOUR_LIST_NAME'  # Name of the list you want to operate on
+username = 'YOUR_USERNAME'  # Your Trakt username
 
 headers = {
     'Content-Type': 'application/json',
@@ -15,19 +15,19 @@ headers = {
     'Authorization': f'Bearer {access_token}'
 }
 
-# Listeyi getir
+# Fetch the list
 response = requests.get(f"{api_url}/users/{username}/lists/{list_name}/items", headers=headers)
 list_items = response.json()
 
-# İzlenen olarak işaretleme yapılacak filmlerin listesini hazırla
+# Prepare the list of movies to be marked as watched
 watched_movies = {
     "movies": [{"ids": {"trakt": movie['movie']['ids']['trakt']}} for movie in list_items if movie['type'] == 'movie']
 }
 
-# Filmleri izlenen olarak işaretle
+# Mark the movies as watched
 response = requests.post(f"{api_url}/sync/history", json=watched_movies, headers=headers)
 
 if response.status_code == 201:
-    print("Filmler başarıyla izlenen olarak işaretlendi.")
+    print("Movies successfully marked as watched.")
 else:
-    print("Bir hata oluştu:", response.status_code, response.text)
+    print("An error occurred:", response.status_code, response.text)
