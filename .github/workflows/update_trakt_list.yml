@@ -20,8 +20,8 @@ jobs:
           pip install requests
       - name: Update Trakt list
         env:
-          CLIENT_ID: ${{ secrets.TRAKT_CLIENTID }}
-          CLIENT_SECRET: ${{ secrets.TRAKT_CLIENTSECRET }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.TRAKT_CLIENT_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           LIST_NAME: ${{ secrets.LIST_NAME }}
           USERNAME: ${{ secrets.USERNAME }}
