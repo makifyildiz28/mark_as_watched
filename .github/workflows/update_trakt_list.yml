@@ -10,16 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 # En güncel sürüme geçiş
+        uses: actions/checkout@v4
+
       - name: Set up Python
-        uses: actions/setup-python@v4 # En güncel sürüme geçiş, v4 varsayılandır
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+
       - name: Install dependencies
         run: |
           pip install requests
+
       - name: Update Trakt list
-        env:
+        env:  # Bu satırı ve altındakileri ekleyin
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
