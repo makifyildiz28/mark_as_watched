@@ -1,12 +1,13 @@
 import requests
 import json
+import os
 
-# Trakt API settings
-client_id = 'CLIENT_ID'
-access_token = 'ACCESS_TOKEN'  # Access token obtained via OAuth
+# Trakt API settings from GitHub Secrets
+client_id = os.getenv('CLIENT_ID')
+access_token = os.getenv('ACCESS_TOKEN')  # Access token obtained via OAuth
 api_url = 'https://api.trakt.tv'
-list_name = 'LIST_NAME'  # Name of the list you want to operate on
-username = 'USERNAME'  # Your Trakt username
+list_name = os.getenv('LIST_NAME')  # Name of the list you want to operate on
+username = os.getenv('USERNAME')  # Your Trakt username
 
 headers = {
     'Content-Type': 'application/json',
